@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from '@src/environments/environment';
 
 @Component({
@@ -6,6 +7,18 @@ import { environment } from '@src/environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'NgRx-CustomUI';
+
+  constructor(private afs: AngularFirestore) {}
+  ngOnInit(): void {
+    this.afs
+      .collection('test')
+      .snapshotChanges()
+      .subscribe((items) => {
+        console.log(
+          'afs: ' + JSON.stringify(items.map((x) => x.payload.doc.data()))
+        );
+      });
+  }
 }
