@@ -23,23 +23,19 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/NgRx-CustomUI",
+            "outputPath": "dist",
+            "sourceMap": true,
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
-            "production": {
+            "prod": {
               "budgets": [
                 {
                   "type": "initial",
@@ -58,6 +54,28 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "outputHashing": "all",
+              "sourceMap": false
+            },
+            "dev": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ],
               "outputHashing": "all"
             },
             "development": {
@@ -73,9 +91,16 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "NgRx-CustomUI:build",
+            "port": 5200
+          },
           "configurations": {
-            "production": {
-              "browserTarget": "NgRx-CustomUI:build:production"
+            "dev": {
+              "browserTarget": "NgRx-CustomUI:build:dev"
+            },
+            "prod": {
+              "browserTarget": "NgRx-CustomUI:build:prod"
             },
             "development": {
               "browserTarget": "NgRx-CustomUI:build:development"
@@ -97,13 +122,8 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }
