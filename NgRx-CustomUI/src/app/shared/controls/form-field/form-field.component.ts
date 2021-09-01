@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { InvokeFunctionExpr } from '@angular/compiler';
+import { Component, Input, OnInit } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-field',
   templateUrl: './form-field.component.html',
-  styleUrls: ['./form-field.component.scss']
+  styleUrls: ['./form-field.component.scss'],
 })
 export class FormFieldComponent implements OnInit {
+  @Input() label!: string;
+  @Input() required!: boolean;
+  @Input() isInline: boolean = true;
+  @Input() control!:AbstractControl;
+  @Input() patternError!:string;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  hasError(): boolean {
+ 
+    return  this.control && this.control.invalid && this.control.touched;
   }
 
+  get errorKey() {
+    return this.control && this.control.errors && Object.keys(this.control.errors)[0];
+  }
 }

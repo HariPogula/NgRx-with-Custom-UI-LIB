@@ -1,27 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { regex,regexErrors } from '@app/shared';
 
 @Component({
   selector: 'app-shared',
   templateUrl: './shared.component.html',
-  styleUrls: ['./shared.component.scss']
+  styleUrls: ['./shared.component.scss'],
 })
 export class SharedComponent implements OnInit {
-form!:FormGroup;
-  constructor(private fb:FormBuilder) { }
+  form!: FormGroup;
+  isInline: boolean = false;
+  regexErrors = regexErrors;
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.form=this.fb.group({
-      name:[null]
-    })
+    this.form = this.fb.group({
+      name: [
+        null,
+        {
+          updateOn: 'blur',
+          validators: [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.pattern(regex.email),
+          ],
+        },
+      ],
+    });
   }
 
   onPatchValue() {
-    this.form.patchValue({name:'test'})
+    this.form.patchValue({ name: 'test' });
   }
   onSubmit() {
-console.log("Subnmitted");
-
+    console.log('Subnmitted');
   }
 
+  onToggleInline() {
+    this.isInline = !this.isInline;
+  }
 }
