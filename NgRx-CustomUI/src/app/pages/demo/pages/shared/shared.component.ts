@@ -33,7 +33,7 @@ export class SharedComponent implements OnInit {
     this.form.patchValue({ name: 'test' });
   }
   onSubmit() {
-    console.log('Subnmitted');
+    console.log('Submitted');
   }
 
   onToggleInline() {

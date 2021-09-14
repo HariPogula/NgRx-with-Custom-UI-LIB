@@ -3,7 +3,7 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate autocomplete="off" >
     <app-button  (click)="onPatchValue()" >Patch Value</app-button> <br/> <br/>
     <app-button  (click)="onToggleInline()" >Toggle Inline</app-button> <br/> <br/>
-    <app-form-field  label ="Input" [required]="true" [control]="form.controls.name" [isInline]="isInline"  [patternError] = "regexErrors.email" >
+    <app-form-field  [label] ="'Input'" [required]="true" [control]="form.controls.name" [isInline]="isInline"  [patternError] = "regexErrors.email" >
     <app-input  formControlName="name"  ></app-input>
 </app-form-field>
 </form>

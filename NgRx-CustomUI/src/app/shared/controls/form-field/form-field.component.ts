@@ -24,6 +24,6 @@ export class FormFieldComponent implements OnInit {
   }
 
   get errorKey() {
-    return this.control && this.control.errors && Object.keys(this.control.errors)[0];
+    return this.control && this.control.errors && Object.keys(this.control.errors)[0]; // This is when we have more then one validatoors at a tiome Ex: Min length and Paterrn. It will show min length first
   }
 }
